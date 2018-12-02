@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="Dashboard.PiePlotter"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:dashboard="clr-namespace:Dashboard"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type dashboard:PiePiece}">
+            <Setter Property="Stroke" Value="White"/>
+            <Setter Property="StrokeThickness" Value="1"/>
+        </Style>
+
+    </UserControl.Resources>
+    <Grid>
+        <Canvas Name="canvas" VerticalAlignment="Top" />
+    </Grid>
+</UserControl>

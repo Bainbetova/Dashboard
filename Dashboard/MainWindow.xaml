@@ -1,0 +1,73 @@
+﻿<Window x:Class="Dashboard.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dashboard="clr-namespace:Dashboard"
+            Title="Учет расходов" Height="480" Width="540">
+    <Window.Resources>
+        <x:ArrayExtension Type="{x:Type Brush}" x:Key="brushes">
+            <SolidColorBrush Color="Red"/>
+            <SolidColorBrush Color="Blue"/>
+            <SolidColorBrush Color="Green"/>
+            <SolidColorBrush Color="Yellow"/>
+            <SolidColorBrush Color="White"/>
+            <SolidColorBrush Color="Black"/>
+            <SolidColorBrush Color="Gray"/>
+        </x:ArrayExtension>
+    </Window.Resources>
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <dashboard:PieChartLayout HorizontalAlignment="Center" Grid.Row="0" Grid.Column="0"
+                              x:Name="piePlotter" PlottedProperty="Cash" Margin="10">
+                <dashboard:PieChartLayout.ColorSelector>
+                    <dashboard:IndexedColourSelector Brushes="{StaticResource brushes}"/>
+                </dashboard:PieChartLayout.ColorSelector>
+            </dashboard:PieChartLayout>
+            
+            <GroupBox Header="Траты" Width="Auto" Margin="10">
+                <StackPanel Orientation="Horizontal">
+                    <ListView IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding}"
+                              Margin="10" Height="150" Name="ListBox1" GridViewColumnHeader.Click="OnColumnHeaderClick">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Category" DisplayMemberBinding="{Binding Path=Category}"/>
+                                <GridViewColumn Header="Cash" DisplayMemberBinding="{Binding Path=Cash}"/>
+                                <GridViewColumn Header="Card1" DisplayMemberBinding="{Binding Path=Card1}"/>
+                                <GridViewColumn Header="Card2" DisplayMemberBinding="{Binding Path=Card2}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <GroupBox Header="Детализация" Width="Auto" Margin="10">
+                        <Grid Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30*"/>
+                                <RowDefinition Height="30*"/>
+                                <RowDefinition Height="30*"/>
+                                <RowDefinition Height="30*"/>
+                                <RowDefinition Height="30*"/>
+                                <RowDefinition Height="30*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="78*"/>
+                                <ColumnDefinition Width="112*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Height="23" Grid.Row="0" Grid.Column="0">Категория трат:</Label>
+                            <TextBox Height="23" Width="110" Grid.Column="1" Grid.Row="0" Text="{Binding Path=Category}"></TextBox>
+                            
+                            <Label Height="23" Grid.Row="1">Наличные:</Label>
+                            <TextBox Height="23" Width="110" Grid.Row="1" Grid.Column="1" Text="{Binding Path=Cash}"></TextBox>
+                            
+                            <Label Height="23" Grid.Row="2">Карта основная:</Label>
+                            <TextBox Height="23" Width="110" Grid.Row="2" Grid.Column="1" Text="{Binding Path=Card1}"></TextBox>
+                            
+                            <Label Height="23" Grid.Row="3">Карта дополнительная:</Label>
+                            <TextBox Height="23" Width="110" Grid.Row="3" Grid.Column="1" Text="{Binding Path=Card2}"></TextBox>
+                            
+                            <Button Grid.ColumnSpan="2" Grid.Column="0" Height="23" Width="Auto" HorizontalAlignment="Left" Margin="3" Grid.Row="4" Click="AddNewItem" Content="Добавить источник расходов"/>
+                        </Grid>
+                    </GroupBox>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+    </Grid>
+</Window>
